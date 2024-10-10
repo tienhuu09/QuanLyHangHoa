@@ -1,0 +1,95 @@
+﻿<UserControl x:Class="Tien_C4_B1.ucElectronic"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+             xmlns:local="clr-namespace:Tien_C4_B1"
+             mc:Ignorable="d" >
+    
+    <UserControl.Resources>
+        <local:IndexListViewItemConverter x:Key="indexListViewItemConverter"/>
+        <local:ConverterStatus x:Key="ConverterStatus" />
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <TextBlock Text="Electronic Product" 
+                   FontSize="14"
+                   FontWeight="Medium"
+                   Foreground="White"/>
+        </StackPanel>
+       
+        <ListView Name="lstView"
+                  Grid.Row="1"
+                  Width="auto" 
+                  HorizontalAlignment="Left"
+                  Style="{StaticResource lstView}"
+                  ItemContainerStyle="{StaticResource lstViewItem}"
+                  ItemsSource="{Binding electronics}"
+                  FontSize="14"
+                  Foreground="White">
+            <ListView.View>
+                <GridView x:Name="gridView">
+                    <GridView.Columns>
+                        <GridViewColumn Header="STT"
+                                        DisplayMemberBinding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Converter={StaticResource indexListViewItemConverter}}"/>
+                        <GridViewColumn Header="Name"
+                                        Width="180"
+                                        DisplayMemberBinding="{Binding Name}" />
+                        <GridViewColumn Header="Category" 
+                                        Width="120"
+                                        DisplayMemberBinding="{Binding Category}" />
+                        <GridViewColumn Header="Producer" 
+                                        Width="120"
+                                        DisplayMemberBinding="{Binding Producer}" />
+                        <GridViewColumn Header="PriceInput" 
+                                        Width="100"
+                                        DisplayMemberBinding="{Binding PriceInput, StringFormat={x:Static local:Ulti.spec}}" />
+                        <GridViewColumn Header="PriceOutput" 
+                                        Width="100"
+                                        DisplayMemberBinding="{Binding PriceOutput, StringFormat={x:Static local:Ulti.spec}}" />
+                        <GridViewColumn Header="Warranty" 
+                                        Width="80"
+                                        DisplayMemberBinding="{Binding Warranty}" />
+                        <GridViewColumn Header="ElectricPower" 
+                                        Width="100"
+                                        DisplayMemberBinding="{Binding ElectricPower}" />
+
+                        <GridViewColumn Header="      ">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <RadioButton Name="btnDetail"
+                                                     Style="{StaticResource lstViewButton}"
+                                                     Tag="{StaticResource color12}"
+                                                     Click="btnDetail_Click" >
+                                            <StackPanel Orientation="Horizontal">
+                                                <fa:IconImage Icon="CircleInfo" Style="{StaticResource lstButtonIcon}" />
+                                            </StackPanel>
+                                        </RadioButton>
+
+                                        <RadioButton Name="btnEdit"
+                                                     Loaded="btnEdit_Loaded"
+                                                     Style="{StaticResource lstViewButton}"
+                                                     Tag="{StaticResource color9}"
+                                                     Click="btnEdit_Click">
+                                            <StackPanel Orientation="Horizontal">
+                                                <fa:IconImage Icon="Edit" Style="{StaticResource lstButtonIcon}" />
+                                            </StackPanel>
+                                        </RadioButton>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</UserControl>

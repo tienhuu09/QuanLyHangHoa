@@ -1,0 +1,333 @@
+﻿<Window x:Class="Tien_C4_B1.CustomerDetailView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+        xmlns:local="clr-namespace:Tien_C4_B1"
+        WindowStyle="None"
+        KeyDown="Window_KeyDown"
+        MouseDown="Window_MouseDown"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        AllowsTransparency="True"
+        Height="700" Width="630">
+
+    <Window.Resources>
+        <local:IndexListViewItemConverter x:Key="indexListViewItemConverter"/>
+        <local:ConverterStatus x:Key="ConverterStatus" />
+    </Window.Resources>
+
+    <StackPanel VerticalAlignment="Top">
+        <Border CornerRadius="10"
+                Height="600"
+                Background="White"
+                BorderThickness="4">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#462AD8" Offset="0" />
+                    <GradientStop Color="#DA34AE" Offset="0.75" />
+                    <GradientStop Color="#8A16C1" Offset="1" />
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Customer Detail View"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Foreground="Brown"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"/>
+                <Button x:Name="btnClose"
+                        HorizontalAlignment="Right"
+                        Style="{StaticResource controlButton}"
+                        Tag="{StaticResource color4}"
+                        Click="btnClose_Click">
+                    <fa:IconImage Icon="Xmark" Style="{StaticResource controlButtonIcon}" />
+                </Button>
+
+                <Border Grid.Row="1"
+                        Margin="10"
+                        CornerRadius="5"
+                        BorderBrush="LightBlue"
+                        BorderThickness="2"
+                        Width="auto" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.3*"/>
+                            <ColumnDefinition Width="0.7*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Margin="20, 15, 0, 0"
+                                    HorizontalAlignment="Right">
+
+                            <TextBlock Text="ID Card: " 
+                                       FontWeight="Regular"
+                                       Grid.Column="0"
+                                       HorizontalAlignment="Right"
+                                       FontSize="14"/>
+
+                            <TextBlock Text="Customer Name: " 
+                                       Margin="0, 14, 0, 0"
+                                       FontWeight="Regular"
+                                       HorizontalAlignment="Right"
+                                       Grid.Column="0"
+                                       FontSize="14"/>
+
+                            <TextBlock Text="Phone Number: " 
+                                       Margin="0, 8, 0, 0"
+                                       FontWeight="Regular"
+                                       HorizontalAlignment="Right"
+                                       Grid.Column="0"
+                                       FontSize="14"/>
+                            <TextBlock Text="Address: " 
+                                       Margin="0, 8, 0, 0"
+                                       FontWeight="Regular"
+                                       HorizontalAlignment="Right"
+                                       Grid.Column="0"
+                                       FontSize="14"/>
+                            <TextBlock Name="txtCard"
+                                       Text="Card: " 
+                                       Margin="0, 8, 0, 0"
+                                       FontWeight="Regular"
+                                       Visibility="Hidden"
+                                       HorizontalAlignment="Right"
+                                       Grid.Column="0"
+                                       FontSize="14"/>
+                            <TextBlock Name="txtTotalScore"
+                                       Text="Total Score: " 
+                                       Margin="0, 8, 0, 0"
+                                       FontWeight="Regular"
+                                       Visibility="Hidden"
+                                       HorizontalAlignment="Right"
+                                       Grid.Column="0"
+                                       FontSize="14"/>
+                        </StackPanel>
+
+                        <StackPanel x:Name="stkTextBox"
+                                    HorizontalAlignment="Left"
+                                    Margin="10, 10, 0, 0" 
+                                    Grid.Column="1">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox Name="txbIdCard"
+                                         Width="150"
+                                         FontSize="13"
+                                         IsReadOnly="True"
+                                         FontWeight="Medium"
+                                         BorderBrush="DarkGray"
+                                         HorizontalAlignment="Left"
+                                         VerticalContentAlignment="Bottom"
+                                         Text="{Binding Customer.IdCard, UpdateSourceTrigger=PropertyChanged}"
+                                         BorderThickness="0, 0, 0, 1" />
+
+                                <Button x:Name="btnCheckId"
+                                        Cursor="Hand"
+                                        FontWeight="Medium"
+                                        Content="Check ID"
+                                        Margin="10, 0, 0, 0"
+                                        VerticalAlignment="Top"
+                                        Click="btnCheckId_Click"
+                                        HorizontalAlignment="Right">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Width="80" Height="25"
+                                                    CornerRadius="12"
+                                                    Background="{TemplateBinding Background}">
+                                                <ContentPresenter VerticalAlignment="Center"
+                                                                  HorizontalAlignment="Center" />
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#28AEED" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                            </StackPanel>
+                               
+                            <TextBlock Name="txtMessage"
+                                       Text="Customer not exist, Please create a new one!"
+                                       Foreground="Red"
+                                       Visibility="Hidden"
+                                       FontSize="10"/>
+                            
+                            <TextBox Name="txbCustomerName"
+                                     Width="150"
+                                     BorderBrush="DarkGray"
+                                     FontSize="13"
+                                     FontWeight="Medium"
+                                     IsReadOnly="True"
+                                     Margin="0, 0, 0, 0"
+                                     HorizontalAlignment="Left"
+                                     Text="{Binding Customer.Name, UpdateSourceTrigger=PropertyChanged}"
+                                     BorderThickness="0, 0, 0, 1"/>
+                            <TextBox x:Name="txbPhoneNumber"
+                                     Width="150"
+                                     BorderBrush="DarkGray"
+                                     FontSize="13"
+                                     FontWeight="Medium"
+                                     IsReadOnly="True"
+                                     Margin="0, 8, 0, 0"
+                                     HorizontalAlignment="Left"
+                                     Text="{Binding Customer.PhoneNumber, StringFormat={}{0:N0}, UpdateSourceTrigger=PropertyChanged}"
+                                     BorderThickness="0, 0, 0, 1" />
+                            <TextBox x:Name="txbAddress"
+                                     Width="250"
+                                     BorderBrush="DarkGray"
+                                     FontSize="13"
+                                     FontWeight="Medium"
+                                     IsReadOnly="True"
+                                     Margin="0, 8, 0, 0"
+                                     HorizontalAlignment="Left"
+                                     Text="{Binding Customer.Address, UpdateSourceTrigger=PropertyChanged}"
+                                     BorderThickness="0, 0, 0, 1" />
+                            <TextBox x:Name="txbCard"
+                                     Width="150"
+                                     BorderBrush="DarkGray"
+                                     FontSize="13"
+                                     FontWeight="Medium"
+                                     IsReadOnly="True"
+                                     Visibility="Hidden"
+                                     Margin="0, 8, 0, 0"
+                                     HorizontalAlignment="Left"
+                                     Text="{Binding Customer.Card, StringFormat={}{0:N0}, UpdateSourceTrigger=PropertyChanged}"
+                                     BorderThickness="0, 0, 0, 1" />
+                            <TextBox x:Name="txbTotalScore"
+                                     Width="150"
+                                     BorderBrush="DarkGray"
+                                     FontSize="13"
+                                     FontWeight="Medium"
+                                     IsReadOnly="True"
+                                     Visibility="Hidden"
+                                     Margin="0, 8, 0, 0"
+                                     HorizontalAlignment="Left"
+                                     Text="{Binding Customer.TotalScore, StringFormat={}{0:N0}, UpdateSourceTrigger=PropertyChanged}"
+                                     BorderThickness="0, 0, 0, 1" />
+
+                            <StackPanel Grid.ColumnSpan="2"
+                                        Orientation="Vertical"
+                                        Margin="0, 20, 0, 10">
+                                <Button Name="btnConfirm"
+                                        Height="auto"
+                                        FontSize="14"
+                                        Cursor="Hand"
+                                        FontWeight="Medium"
+                                        Content="Confirm Create"
+                                        Width="auto" Click="btnConfirm_Click">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Width="150" Height="40"
+                                                    CornerRadius="15"
+                                                    Background="{TemplateBinding Background}">
+                                                <ContentPresenter VerticalAlignment="Center"
+                                                                  HorizontalAlignment="Center" />
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#28AEED" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                                <!--<Button Name="btnConfirmEdit"
+                                        Height="auto"
+                                        FontSize="14"
+                                        Cursor="Hand"
+                                        FontWeight="Medium"
+                                        Content="Confirm Edit"
+                                        Width="auto" Click="btnConfirmEdit_Click">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Width="150" Height="40"
+                                                    CornerRadius="15"
+                                                    Background="{TemplateBinding Background}">
+                                                <ContentPresenter VerticalAlignment="Center"
+                                                                  HorizontalAlignment="Center" />
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>-->
+                            </StackPanel>
+                       
+                        </StackPanel>
+
+                    </Grid>
+                </Border>
+
+                <Border Name="borderListView" 
+                        Grid.Row="2"
+                        CornerRadius="5"
+                        BorderBrush="LightBlue"
+                        BorderThickness="2"
+                        Width="auto"
+                        Margin="0, 10, 0, 0"
+                        Height="auto">
+                    <ListView Name="lstView"  
+                              Width="auto" 
+                              HorizontalAlignment="Left"
+                              Style="{StaticResource ListView}"
+                              ItemContainerStyle="{StaticResource ListViewItem}"
+                              ItemsSource="{Binding Customer.lstCustomerDt}"
+                              FontSize="14">
+                        <ListView.View>
+                            <GridView x:Name="gridView">
+                                <GridView.Columns>
+                                    <GridViewColumn Header="STT"
+                                                    DisplayMemberBinding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Converter={StaticResource indexListViewItemConverter}}"/>
+                                    <GridViewColumn Header="Id SalesSlip" 
+                                                    Width="80"
+                                                    DisplayMemberBinding="{Binding IdSaleSlip}" />
+                                    <GridViewColumn Header="Quantity"
+                                                    Width="80"
+                                                    DisplayMemberBinding="{Binding Quantity}" />
+                                    <GridViewColumn Header="Total" 
+                                                    Width="120"
+                                                    DisplayMemberBinding="{Binding Total, StringFormat={x:Static local:Ulti.spec}}" />
+                                    <GridViewColumn Header="Score" 
+                                                    Width="80"
+                                                    DisplayMemberBinding="{Binding Score, StringFormat={x:Static local:Ulti.spec2}}" />
+                                    <GridViewColumn Header="Create At" 
+                                                    Width="150"
+                                                    DisplayMemberBinding="{Binding createAt, StringFormat={x:Static local:Ulti.date}}" />
+                                    <GridViewColumn Header="      ">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <RadioButton Name="btnDetail" 
+                                                                 Style="{StaticResource lstViewButton}"
+                                                                 Tag="{StaticResource color8}"
+                                                                 Click="btnDetail_Click">
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <fa:IconImage Icon="CircleInfo" Style="{StaticResource lstButtonIcon}" />
+                                                        </StackPanel>
+                                                    </RadioButton>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView.Columns>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Border>
+            </Grid>
+        </Border>
+    </StackPanel>
+
+</Window>

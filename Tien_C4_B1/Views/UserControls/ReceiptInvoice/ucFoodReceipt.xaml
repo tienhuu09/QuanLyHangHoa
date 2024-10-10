@@ -1,0 +1,109 @@
+﻿<UserControl x:Class="Tien_C4_B1.ucFoodReceipt"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Tien_C4_B1"
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp">
+    
+    <UserControl.Resources>
+        <local:IndexListViewItemConverter x:Key="indexListViewItemConverter"/>
+        <local:ConverterStatus x:Key="ConverterStatus" />
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <StackPanel x:Name="stkButton"
+                    Height="40">
+            </StackPanel>
+            <TextBlock Text="Food Receipt" 
+                       FontSize="14"
+                       FontWeight="Medium"
+                       Foreground="White"/>
+        </StackPanel>
+
+        <ListView Name="lstView"
+                  Grid.Row="1"
+                  Width="auto" 
+                  FontSize="14"
+                  Height="200"
+                  HorizontalAlignment="Left"
+                  Style="{StaticResource lstView}"
+                  ScrollViewer.VerticalScrollBarVisibility="Visible"
+                  ItemContainerStyle="{StaticResource lstViewItem}"
+                  ItemsSource="{Binding foodReceipts, UpdateSourceTrigger=PropertyChanged}"
+                  Foreground="White">
+            <ListView.View>
+                <GridView x:Name="gridView">
+                    <GridView.Columns>
+                        <GridViewColumn Header="STT"
+                                        DisplayMemberBinding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Converter={StaticResource indexListViewItemConverter}}"/>
+                        <GridViewColumn Header="Id Product"
+                                        Width="100"
+                                        DisplayMemberBinding="{Binding IdProduct, UpdateSourceTrigger=PropertyChanged}" />
+                        <GridViewColumn Header="Id Receipt" 
+                                        Width="90"
+                                        DisplayMemberBinding="{Binding IdReceipt, UpdateSourceTrigger=PropertyChanged}" />
+                        <GridViewColumn Header="Name" 
+                                        Width="100"
+                                        DisplayMemberBinding="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+                        <GridViewColumn Header="Quantity" 
+                                        Width="100"
+                                        DisplayMemberBinding="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" />
+                        <GridViewColumn Header="Export Quantity" 
+                                        Width="120"
+                                        DisplayMemberBinding="{Binding ExpQuan, UpdateSourceTrigger=PropertyChanged}" />
+                        <GridViewColumn Header="Mfg Date" 
+                                        Width="140"
+                                        DisplayMemberBinding="{Binding MfgDate, UpdateSourceTrigger=PropertyChanged, StringFormat={x:Static local:Ulti.date2}}" />
+                        <GridViewColumn Header="Exp Date" 
+                                        Width="140"
+                                        DisplayMemberBinding="{Binding ExpDate, UpdateSourceTrigger=PropertyChanged, StringFormat={x:Static local:Ulti.date2}}" />
+                        <GridViewColumn Header="Status" 
+                                        Width="140"
+                                        DisplayMemberBinding="{Binding Status, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ConverterStatus}}" />
+
+
+                        <GridViewColumn Header="      ">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <!--<StackPanel Orientation="Horizontal">
+                                        <RadioButton Name="btnDetail"
+                                                     Style="{StaticResource lstViewButton}"
+                                                     Tag="{StaticResource color12}"
+                                                     Click="btnDetail_Click" >
+                                            <StackPanel Orientation="Horizontal">
+                                                <fa:IconImage Icon="CircleInfo" Style="{StaticResource lstButtonIcon}" />
+                                            </StackPanel>
+                                        </RadioButton>
+                                        <RadioButton Name="btnLock"
+                                                     Style="{StaticResource lstViewButton}"
+                                                     Tag="{StaticResource color9}"
+                                                     Click="btnEdit_Click">
+                                            <StackPanel Orientation="Horizontal">
+                                                <fa:IconImage Icon="Edit" Style="{StaticResource lstButtonIcon}" />
+                                            </StackPanel>
+                                        </RadioButton>
+                                        <RadioButton Name="btnRomove" 
+                                                     Style="{StaticResource lstViewButton}"
+                                                     Tag="{StaticResource color11}"
+                                                     Click="btnRomove_Click">
+                                            <StackPanel Orientation="Horizontal">
+                                                <fa:IconImage Icon="TrashCan" Style="{StaticResource lstButtonIcon}" />
+                                            </StackPanel>
+                                        </RadioButton>
+                                    </StackPanel>-->
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</UserControl>

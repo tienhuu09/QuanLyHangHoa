@@ -1,0 +1,249 @@
+﻿<Window x:Class="Tien_C4_B1.StockerView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+        xmlns:local="clr-namespace:Tien_C4_B1"
+        Height="800" Width="1500"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowState="Maximized"
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        KeyDown="Window_KeyDown">
+    
+    <Border CornerRadius="10"
+            BorderThickness="4">
+
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#462AD8" Offset="0" />
+                <GradientStop Color="#DA34AE" Offset="0.75" />
+                <GradientStop Color="#8A16C1" Offset="1" />
+            </LinearGradientBrush>
+        </Border.BorderBrush>
+
+        <Grid>
+
+            <Grid.ColumnDefinitions>
+                <!--Navigation Menu-->
+                <ColumnDefinition Width="250" />
+
+                <!--Content Section-->
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!--Navigation Menu-->
+            <Border CornerRadius="10,0,0,10"
+                    Grid.Column="0" >
+
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0.7">
+                        <GradientStop Color="{StaticResource secondaryBackColor6}" Offset="0" />
+                        <GradientStop Color="{StaticResource secondaryBackColor6}" Offset="1" />
+
+                    </LinearGradientBrush>
+                </Border.Background>
+
+                <StackPanel>
+                    <!--Logo-->
+
+                    <StackPanel Orientation="Horizontal"
+                                Height="37"
+                                Margin="30, 25, 0, 40">
+                        <Image Source="/Images/warehouse.png" />
+                        <TextBlock Text="STORAGE"
+                                   Foreground="{StaticResource titleColor2}"
+                                   FontSize="20"
+                                   FontFamily="Montserrat"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   Margin="10" />
+                    </StackPanel>
+
+                    <!--Menu Buttons-->
+                    <RadioButton Name="btnInventory"
+                                 Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource color1}"
+                                 Click="MenuButton_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="Warehouse" Style="{StaticResource menuButtonIcon}" />
+                            <TextBlock Text="Inventory" Style="{StaticResource menuButtonText}" />
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Name="btnReceipt"
+                                 Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource color3}"
+                                 Click="MenuButton_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="Receipt" Style="{StaticResource menuButtonIcon}" />
+                            <TextBlock Text="Receipt" Style="{StaticResource menuButtonText}" />
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Name="btnInvoice"
+                                 Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource color4}"
+                                 Click="MenuButton_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="FileInvoice" Style="{StaticResource menuButtonIcon}" />
+                            <TextBlock Text="Invoice" Style="{StaticResource menuButtonText}" />
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Name="btnProduct"
+                                 Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource color9}"
+                                 Click="MenuButton_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="BoxOpen" Style="{StaticResource menuButtonIcon}" />
+                            <TextBlock Text="Product" Style="{StaticResource menuButtonText}" />
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Name="btnFoodReceipt"
+                                 Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource color7}"
+                                 Click="MenuButton_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="BowlFood" Style="{StaticResource menuButtonIcon}" />
+                            <TextBlock Text="Food Receipt" Style="{StaticResource menuButtonText}" />
+                        </StackPanel>
+                    </RadioButton>
+                </StackPanel>
+
+            </Border>
+
+            <!--Main Section-->
+            <Border CornerRadius="0,10,10,0"
+                    Grid.Column="1" >
+
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="1,2" EndPoint="0,0">
+                        <GradientStop Color="{StaticResource secondaryBackColor5}" Offset="0.1" />
+                        <GradientStop Color="{StaticResource secondaryBackColor6}" Offset="1" />
+
+                    </LinearGradientBrush>
+                </Border.Background>
+
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <!--Control bar-->
+                        <RowDefinition Height="25" />
+                        <!--Header / caption-->
+                        <RowDefinition Height="35" />
+                        <!--Content section / Child view-->
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!--Control bar-->
+                    <StackPanel x:Name="pnlControlBar"
+                                Grid.Row="0"
+                                Orientation="Horizontal"
+                                FlowDirection="RightToLeft"
+                                Background="Transparent"
+                                Margin="0,0,5,0"
+                                MouseLeftButtonDown="pnlControlBar_MouseLeftButtonDown"
+                                MouseEnter="pnlControlBar_MouseEnter">
+
+                        <Button x:Name="btnClose"
+                                Style="{StaticResource controlButton}"
+                                Tag="{StaticResource color4}"
+                                Click="btnClose_Click">
+                            <fa:IconImage Icon="Xmark" Style="{StaticResource controlButtonIcon}" />
+
+                        </Button>
+
+                        <Button x:Name="btnMaximize"
+                                Style="{StaticResource controlButton}"
+                                Tag="{StaticResource color6}"
+                                Click="btnMaximize_Click">
+                            <fa:IconImage Icon="Square" Style="{StaticResource controlButtonIcon}" />
+
+                        </Button>
+
+                        <Button x:Name="btnMinimize"
+                                Style="{StaticResource controlButton}"
+                                Tag="{StaticResource color8}"
+                                Click="btnMinimize_Click">
+                            <fa:IconImage Icon="WindowMinimize" Width="13" Style="{StaticResource controlButtonIcon}" />
+                        </Button>
+
+                    </StackPanel>
+
+                    <!--Header / Caption-->
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <!--Caption-->
+                        <StackPanel Grid.Column="0"
+                                    Orientation="Horizontal"
+                                    VerticalAlignment="Center">
+
+                            <fa:IconImage Icon="Home" 
+                                          Height="20"
+                                          Width="20"
+                                          Foreground="{StaticResource titleColor2}"
+                                          Margin="35, 0, 10, 0"/>
+
+                            <TextBlock Text="Admin Management"
+                                       Foreground="{StaticResource titleColor2}"
+                                       FontSize="16"
+                                       FontFamily="Monterrat"
+                                       FontWeight="Medium"
+                                       VerticalAlignment="Center" />
+
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" 
+                                    Margin="0, 0, 10, 0"
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center">
+
+                            <fa:IconImage Icon="UserAlt" 
+                                          Height="20"
+                                          Width="20"
+                                          Foreground="{StaticResource titleColor2}"
+                                          Margin="0, 0, 5, 0"/>
+                            
+                            <TextBlock Text="{Binding Account.Name, UpdateSourceTrigger=PropertyChanged}"
+                                       Foreground="{StaticResource titleColor2}"
+                                       FontSize="16"
+                                       FontFamily="Monterrat"
+                                       FontWeight="Medium"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center"/>
+                            <RadioButton Name="btnLog"
+                                         Width="50"
+                                         HorizontalAlignment="Left"
+                                         Style="{StaticResource lstViewButton}"
+                                         Tag="{StaticResource titleColor1}"
+                                         Click="btnClose_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:IconImage Icon="RightFromBracket" Style="{StaticResource lstButtonIcon}" />
+                                </StackPanel>
+                            </RadioButton>
+                        </StackPanel>
+                    </Grid>
+
+
+                    <StackPanel Name="stkListView"
+                                Margin="0, 0, 0, 0"
+                                Grid.Row="2">
+
+                    </StackPanel>
+
+                </Grid>
+
+            </Border>
+
+        </Grid>
+
+    </Border>
+
+</Window>
